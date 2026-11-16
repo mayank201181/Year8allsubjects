@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#1b1f24"/>
+  <rect x="64" y="300" width="56" height="148" rx="14" fill="#2f6fdb"/>
+  <rect x="132" y="300" width="56" height="148" rx="14" fill="#1f8a5b"/>
+  <rect x="200" y="300" width="56" height="148" rx="14" fill="#b0413e"/>
+  <rect x="268" y="300" width="56" height="148" rx="14" fill="#c8102e"/>
+  <rect x="336" y="300" width="56" height="148" rx="14" fill="#d98a00"/>
+  <rect x="404" y="300" width="44" height="148" rx="14" fill="#7a4fb3"/>
+  <text x="256" y="250" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="200" fill="#f4f1ea">Y8</text>
+</svg>
