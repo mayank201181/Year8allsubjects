@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Year 8 All Subjects</title>
+<meta name="description" content="Vanshika's Year 8 launcher: one page linking every subject study dashboard.">
+<meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181d" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Year 8">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1ea;
+  --bg2: #ebe6da;
+  --card: #fffdf8;
+  --ink: #1b1f24;
+  --muted: #5d6670;
+  --line: rgba(27, 31, 36, 0.10);
+  --shadow: 0 1px 2px rgba(27,31,36,.06), 0 8px 24px rgba(27,31,36,.07);
+  --shadow-hover: 0 2px 4px rgba(27,31,36,.08), 0 16px 36px rgba(27,31,36,.12);
+  --pill-live-bg: #e3f2e8; --pill-live-ink: #1d6b3d;
+  --pill-soon-bg: #f1ece1; --pill-soon-ink: #7a6a4a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181d; --bg2: #1a1f26; --card: #1f252d; --ink: #eef0f3; --muted: #a2abb5;
+    --line: rgba(255,255,255,.09);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    --shadow-hover: 0 2px 4px rgba(0,0,0,.35), 0 16px 36px rgba(0,0,0,.35);
+    --pill-live-bg: #183a27; --pill-live-ink: #8fe0ad;
+    --pill-soon-bg: #2b2a24; --pill-soon-ink: #cbbb94;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181d; --bg2: #1a1f26; --card: #1f252d; --ink: #eef0f3; --muted: #a2abb5;
+  --line: rgba(255,255,255,.09);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  --shadow-hover: 0 2px 4px rgba(0,0,0,.35), 0 16px 36px rgba(0,0,0,.35);
+  --pill-live-bg: #183a27; --pill-live-ink: #8fe0ad;
+  --pill-soon-bg: #2b2a24; --pill-soon-ink: #cbbb94;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: max(28px, env(safe-area-inset-top)) 16px 56px;
+}
+header { margin: 8px 0 28px; }
+.eyebrow {
+  font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 8px;
+}
+h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(2.1rem, 7vw, 3.4rem);
+  line-height: 1.02; letter-spacing: -.025em;
+  margin: 0 0 10px;
+}
+.lede { color: var(--muted); font-size: 1.02rem; line-height: 1.55; margin: 0; max-width: 36rem; }
+.continue {
+  margin-top: 18px; display: none; align-items: center; gap: 10px;
+  padding: 10px 14px 10px 12px; border-radius: 12px; background: var(--card);
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  color: var(--ink); text-decoration: none; font-weight: 600; font-size: .95rem; max-width: 100%;
+}
+.continue.show { display: inline-flex; }
+.continue .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.continue small { color: var(--muted); font-weight: 500; }
+
+h2 {
+  font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin: 36px 0 12px;
+}
+.grid {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+.card {
+  position: relative; display: flex; gap: 14px; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+  padding: 18px 18px 16px; text-decoration: none; color: inherit;
+  box-shadow: var(--shadow); overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+  min-height: 118px;
+}
+.card::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--accent);
+}
+a.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+a.card:active { transform: translateY(0); }
+a.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.card.soon { opacity: .78; cursor: default; }
+.glyph {
+  flex: none; width: 52px; height: 52px; border-radius: 14px;
+  display: grid; place-items: center; font-size: 1.55rem; font-weight: 700;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  font-family: "Fraunces", Georgia, serif;
+}
+.body { flex: 1; min-width: 0; }
+.title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.card h3 { margin: 2px 0 4px; font-size: 1.18rem; font-weight: 700; letter-spacing: -.01em; }
+.card p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+.pill {
+  flex: none; font-size: .7rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 999px;
+}
+.pill.live { background: var(--pill-live-bg); color: var(--pill-live-ink); }
+.pill.soon { background: var(--pill-soon-bg); color: var(--pill-soon-ink); }
+.meta { margin-top: 10px; font-size: .78rem; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.meta .host { opacity: .8; overflow-wrap: anywhere; }
+
+.extras { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.extra {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px;
+  background: var(--card); border: 1px solid var(--line); text-decoration: none; color: inherit;
+  transition: box-shadow .18s ease;
+}
+.extra:hover { box-shadow: var(--shadow); }
+.extra .tag {
+  flex: none; font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent);
+}
+.extra span:last-child { font-weight: 600; font-size: .93rem; }
+
+.save {
+  margin-top: 36px; padding: 18px; border-radius: 16px; border: 1px dashed var(--line);
+  background: var(--bg2); font-size: .9rem; line-height: 1.55; color: var(--muted);
+}
+.save strong { color: var(--ink); }
+.save ul { margin: 8px 0 0; padding-left: 18px; }
+footer { margin-top: 28px; font-size: .78rem; color: var(--muted); text-align: center; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow" id="greeting">Year 8</p>
+    <h1>Year 8 All Subjects</h1>
+    <p class="lede">Every subject's study dashboard in one place. Tap a subject to open its guides, quizzes and practice papers.</p>
+    <a class="continue" id="continue" href="#"></a>
+  </header>
+
+  <h2>Subjects</h2>
+  <div class="grid" id="subjects"></div>
+
+  <h2 id="extrasHead">Test prep</h2>
+  <div class="extras" id="extras"></div>
+
+  <div class="save">
+    <strong>Keep this page one tap away</strong>
+    <ul>
+      <li><strong>iPad / iPhone (Safari):</strong> tap Share, then <em>Add to Home Screen</em>.</li>
+      <li><strong>Android (Chrome):</strong> tap ⋮, then <em>Add to Home screen</em>.</li>
+      <li><strong>Laptop:</strong> press Ctrl+D (Windows) or ⌘+D (Mac) to bookmark it.</li>
+    </ul>
+  </div>
+
+  <footer>Subjects marked “Being built” switch on as soon as their dashboard goes live.</footer>
+</div>
+
+<script>
+// ---- Edit this list to add or change subjects. Leave url empty for "Being built". ----
+const SUBJECTS = [
+  { id: "maths",     name: "Maths",     glyph: "∑",  accent: "#2f6fdb", url: "https://year8-maths.vercel.app",
+    blurb: "Number, algebra, geometry and statistics — guides, quizzes and practice papers." },
+  { id: "science",   name: "Science",   glyph: "⚗", accent: "#1f8a5b", url: "https://year8science.vercel.app",
+    blurb: "Biology, Chemistry and Physics — illustrated guides, memory tricks and quizzes." },
+  { id: "english",   name: "English",   glyph: "Aa", accent: "#b0413e", url: "",
+    blurb: "Reading, writing and analysis — texts, techniques and practice questions." },
+  { id: "chinese",   name: "Chinese",   glyph: "中", accent: "#c8102e", url: "https://y8-chinese.vercel.app",
+    blurb: "Mandarin vocabulary, grammar, flashcards and games on the IGCSE 0547 pathway." },
+  { id: "spanish",   name: "Spanish",   glyph: "ñ",  accent: "#d98a00", url: "",
+    blurb: "Vocabulary, grammar and the four skills — listening, reading, speaking, writing." },
+  { id: "geography", name: "Geography", glyph: "🌍", accent: "#0f8b8d", url: "",
+    blurb: "Physical and human geography — case studies, maps and skills." },
+  { id: "history",   name: "History",   glyph: "⌛", accent: "#7a4fb3", url: "",
+    blurb: "Key events, sources and essay skills across the Year 8 course." },
+];
+const EXTRAS = [
+  { subject: "maths",   label: "Maths",   name: "Class test prep — Year 8 Maths", url: "https://vanshika-maths-test.vercel.app" },
+  { subject: "science", label: "Science", name: "Test prep — Acids & Alkalis + Animal Nutrition", url: "https://vanshika-science-test.vercel.app" },
+];
+// -------------------------------------------------------------------------------------
+
+const KEY = "y8hub.lastOpened";
+function readStore() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch { return {}; } }
+function writeStore(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} }
+function ago(ts) {
+  const m = Math.round((Date.now() - ts) / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return m + " min ago";
+  const h = Math.round(m / 60);
+  if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago");
+  const d = Math.round(h / 24);
+  if (d === 1) return "yesterday";
+  if (d < 30) return d + " days ago";
+  return new Date(ts).toLocaleDateString();
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+const store = readStore();
+
+function render() {
+  const grid = document.getElementById("subjects");
+  grid.innerHTML = SUBJECTS.map(s => {
+    const live = !!s.url;
+    const opened = store[s.id];
+    const host = live ? s.url.replace(/^https?:\/\//, "").replace(/\/$/, "") : "";
+    const inner = `
+      <div class="glyph" aria-hidden="true">${esc(s.glyph)}</div>
+      <div class="body">
+        <div class="title-row">
+          <h3>${esc(s.name)}</h3>
+          <span class="pill ${live ? "live" : "soon"}">${live ? "Open" : "Being built"}</span>
+        </div>
+        <p>${esc(s.blurb)}</p>
+        ${live ? `<div class="meta"><span>${opened ? "Last opened " + ago(opened) : "Not opened yet"}</span><span class="host">${esc(host)}</span></div>` : ""}
+      </div>`;
+    return live
+      ? `<a class="card" style="--accent:${s.accent}" href="${esc(s.url)}" data-id="${s.id}">${inner}</a>`
+      : `<div class="card soon" style="--accent:${s.accent}" aria-disabled="true">${inner}</div>`;
+  }).join("");
+
+  const ex = document.getElementById("extras");
+  const accentOf = id => (SUBJECTS.find(s => s.id === id) || {}).accent || "#888";
+  ex.innerHTML = EXTRAS.map(e =>
+    `<a class="extra" style="--accent:${accentOf(e.subject)}" href="${esc(e.url)}" data-id="extra-${e.subject}"><span class="tag">${esc(e.label)}</span><span>${esc(e.name)}</span></a>`
+  ).join("");
+  if (!EXTRAS.length) document.getElementById("extrasHead").style.display = "none";
+
+  // "Continue where you left off"
+  const last = Object.entries(store)
+    .filter(([id]) => SUBJECTS.some(s => s.id === id && s.url))
+    .sort((a, b) => b[1] - a[1])[0];
+  const cont = document.getElementById("continue");
+  if (last) {
+    const s = SUBJECTS.find(x => x.id === last[0]);
+    cont.href = s.url;
+    cont.dataset.id = s.id;
+    cont.innerHTML = `<span class="dot" style="background:${s.accent}"></span>Continue with ${esc(s.name)} <small>· ${ago(last[1])}</small>`;
+    cont.classList.add("show");
+  }
+}
+
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-id]");
+  if (!a) return;
+  const id = a.dataset.id;
+  if (id.startsWith("extra-")) return;
+  store[id] = Date.now();
+  writeStore(store);
+});
+
+(function greet() {
+  const h = new Date().getHours();
+  const part = h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
+  document.getElementById("greeting").textContent = part + ", Vanshika";
+})();
+
+render();
+// Refresh "last opened" labels when she comes back to this tab.
+document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
+</script>
+</body>
+</html>
