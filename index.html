@@ -93,20 +93,37 @@ h2 {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 }
 .card {
-  position: relative; display: flex; gap: 14px; align-items: flex-start;
+  position: relative; display: flex; flex-direction: column;
   background: var(--card); border: 1px solid var(--line); border-radius: 18px;
-  padding: 18px 18px 16px; text-decoration: none; color: inherit;
+  padding: 18px 18px 14px; color: inherit;
   box-shadow: var(--shadow); overflow: hidden;
   transition: transform .18s ease, box-shadow .18s ease;
-  min-height: 118px;
+  min-height: 132px;
 }
 .card::before {
   content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--accent);
 }
-a.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
-a.card:active { transform: translateY(0); }
-a.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.card-main {
+  display: flex; gap: 14px; align-items: flex-start; text-decoration: none; color: inherit;
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.card:active { transform: translateY(0); }
+.card-main:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 10px; }
 .card.soon { opacity: .78; cursor: default; }
+.quick-links {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.qpill {
+  display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px;
+  border-radius: 999px; font-size: .74rem; font-weight: 700; text-decoration: none;
+  background: var(--bg2); color: var(--ink); border: 1px solid var(--line);
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.qpill:hover { background: color-mix(in srgb, var(--accent) 16%, var(--card)); border-color: var(--accent); }
+.qpill.cram { color: #b91c1c; background: color-mix(in srgb, #ef4444 10%, var(--card)); border-color: color-mix(in srgb, #ef4444 26%, transparent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .qpill.cram { color: #fca5a5; } }
+:root[data-theme="dark"] .qpill.cram { color: #fca5a5; }
 .glyph {
   flex: none; width: 52px; height: 52px; border-radius: 14px;
   display: grid; place-items: center; font-size: 1.55rem; font-weight: 700;
@@ -180,20 +197,20 @@ footer { margin-top: 28px; font-size: .78rem; color: var(--muted); text-align: c
 <script>
 // ---- Edit this list to add or change subjects. Leave url empty for "Being built". ----
 const SUBJECTS = [
-  { id: "maths",     name: "Maths",     glyph: "∑",  accent: "#2f6fdb", url: "https://year8-maths.vercel.app",
-    blurb: "Number, algebra, geometry and statistics — guides, quizzes, drills and sitcoms." },
-  { id: "science",   name: "Science",   glyph: "⚗", accent: "#1f8a5b", url: "https://year8science.vercel.app",
-    blurb: "Biology, Chemistry and Physics — illustrated guides, interactive labs and sitcoms." },
-  { id: "english",   name: "English",   glyph: "Aa", accent: "#b0413e", url: "https://year8english.vercel.app",
-    blurb: "Shakespeare, poetry, the novel and writing craft — guides, quizzes and sitcoms." },
-  { id: "chinese",   name: "Chinese",   glyph: "中", accent: "#c8102e", url: "https://year8chinese.vercel.app",
-    blurb: "Mandarin vocabulary, Pinyin, grammar, drills and sitcoms on the IGCSE 0547 pathway." },
-  { id: "spanish",   name: "Spanish",   glyph: "ñ",  accent: "#d98a00", url: "https://year8-spanish.vercel.app",
-    blurb: "Vocabulary with audio, verb drills, four skills and the ¡Qué Caos! sitcom." },
-  { id: "geography", name: "Geography", glyph: "🌍", accent: "#0f8b8d", url: "https://year8geography.vercel.app",
-    blurb: "Population, extreme environments, coasts and future cities — guides, drills and sitcoms." },
-  { id: "history",   name: "History",   glyph: "⌛", accent: "#7a4fb3", url: "https://year8-history.vercel.app",
-    blurb: "Dictatorship and democracy — enquiry guides, source skills, Date Dash and sitcoms." },
+  { id: "maths",     name: "Maths",     glyph: "∑",  accent: "#2f6fdb", url: "https://year8-maths.vercel.app", sitcom: "/episodes",
+    blurb: "Number, algebra, geometry and statistics — guides, drills, Shorts, Exam Cram & sitcoms." },
+  { id: "science",   name: "Science",   glyph: "⚗", accent: "#1f8a5b", url: "https://year8science.vercel.app", sitcom: "/lessons/claude-sitcom.html",
+    blurb: "Biology, Chemistry and Physics — illustrated guides, Shorts, Exam Cram & sitcoms." },
+  { id: "english",   name: "English",   glyph: "Aa", accent: "#b0413e", url: "https://year8english.vercel.app", sitcom: "/watch",
+    blurb: "Shakespeare, poetry, the novel and writing craft — guides, Shorts, Exam Cram & sitcoms." },
+  { id: "chinese",   name: "Chinese",   glyph: "中", accent: "#c8102e", url: "https://year8chinese.vercel.app", sitcom: "/episodes",
+    blurb: "Mandarin vocabulary, Pinyin, grammar, drills, Shorts, Exam Cram & sitcoms (IGCSE 0547)." },
+  { id: "spanish",   name: "Spanish",   glyph: "ñ",  accent: "#d98a00", url: "https://year8-spanish.vercel.app", sitcom: "/episodes",
+    blurb: "Vocabulary with audio, verb drills, Shorts, Exam Cram & the ¡Qué Caos! sitcom." },
+  { id: "geography", name: "Geography", glyph: "🌍", accent: "#0f8b8d", url: "https://year8geography.vercel.app", sitcom: "/episodes",
+    blurb: "Geographer's Toolkit, population, extremes, coasts & cities — Shorts, Exam Cram & sitcoms." },
+  { id: "history",   name: "History",   glyph: "⌛", accent: "#7a4fb3", url: "https://year8-history.vercel.app", sitcom: "/episodes",
+    blurb: "Dictatorship and democracy — enquiry guides, source skills, Shorts, Exam Cram & sitcoms." },
 ];
 const EXTRAS = [
   { subject: "maths",   label: "Maths",   name: "Class test prep — Year 8 Maths", url: "https://vanshika-maths-test.vercel.app" },
@@ -235,9 +252,15 @@ function render() {
         <p>${esc(s.blurb)}</p>
         ${live ? `<div class="meta"><span>${opened ? "Last opened " + ago(opened) : "Not opened yet"}</span><span class="host">${esc(host)}</span></div>` : ""}
       </div>`;
+    const quick = live ? `
+      <div class="quick-links">
+        <a class="qpill cram" href="${esc(s.url)}/cram" data-id="${s.id}">🚨 Exam Cram</a>
+        <a class="qpill" href="${esc(s.url)}/shorts" data-id="${s.id}">📱 Shorts</a>
+        <a class="qpill" href="${esc(s.url)}${esc(s.sitcom || "/episodes")}" data-id="${s.id}">📺 Sitcoms</a>
+      </div>` : "";
     return live
-      ? `<a class="card" style="--accent:${s.accent}" href="${esc(s.url)}" data-id="${s.id}">${inner}</a>`
-      : `<div class="card soon" style="--accent:${s.accent}" aria-disabled="true">${inner}</div>`;
+      ? `<div class="card" style="--accent:${s.accent}"><a class="card-main" href="${esc(s.url)}" data-id="${s.id}">${inner}</a>${quick}</div>`
+      : `<div class="card soon" style="--accent:${s.accent}" aria-disabled="true"><div class="card-main">${inner}</div></div>`;
   }).join("");
 
   const ex = document.getElementById("extras");
